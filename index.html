@@ -4,14 +4,31 @@
   <title>Websocket Client</title>
   <meta charset="utf-8">
 </head>
-<body>
+<body>  
+  <input type="text" id="text" value="Hello, world!">
+  <button onclick="exampleSocket.send(JSON.stringify({ type: 'message', text: document.getElementById('text').value, id: 1, date: Date.now() }))">
+    送信
+  </button>
+  <H1 class="status">
+    Status: <span id="status">接続中...</span>
+  </H1>
+  <p>
+    server response: <span id="message"></span>
+  </p>
+
   <script>
     var exampleSocket = new WebSocket("ws://localhost:2345");
     exampleSocket.onopen = function (event) {
-      exampleSocket.send("ソケット送信");
-    };
+      document.getElementById('status').innerHTML = '接続されました';
+    }
     exampleSocket.onmessage = function (event) {
-      console.log(event.data);
+      var data = JSON.parse(event.data);
+      if (data.type === 'message') {
+        document.getElementById('message').innerHTML = data.text;
+      }
+    }
+    exampleSocket.onclose = function (event) {
+      document.getElementById('status').innerHTML = '切断されました';
     }
   </script>
 </body>

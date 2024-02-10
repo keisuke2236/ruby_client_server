@@ -6,6 +6,11 @@ ruby client_server.rb
 ruby server.rb  
 ```
 
+### 動作検証
+```sh
+ gem install pry pry-doc
+```
+
 `open http://localhost:4000/`
 
 参考資料

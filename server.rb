@@ -2,11 +2,13 @@ require 'socket'
 require 'digest/sha1'
 
 server = TCPServer.new('localhost', 2345)
+response_text = "----サーバログ----\n"
 
 loop do
   # 接続を待機
   socket = server.accept
   STDERR.puts "リクエストが来ました！"
+  response_text = "----リクエストが来ました！----\n"
 
   # HTTPリクエストを読み込む。\r\nの行によって終了を検知する
   http_request = ""
